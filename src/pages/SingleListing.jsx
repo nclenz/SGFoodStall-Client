@@ -2,6 +2,8 @@ import axios from "axios"
 import React from "react"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import EnquiryForm from "../component/EnquiryForm"
+import Navbar from "../component/Navbar"
 
 const SingleListing = () => {
   const [listing, setListing] = useState({})
@@ -18,17 +20,20 @@ const SingleListing = () => {
   }, [])
 
   return (
-    <main className="selected_listing_page">
-      {/* {JSON.stringify(listing)} */}
-      <div
-        className="single-card-image"
-        style={{
-          backgroundImage: `url(${listing.image})`,
-        }}
-      />
-      {listing.title}
-      {listing.rental}
-    </main>
+    <>
+      <Navbar />
+      <main className="selected_listing_page">
+        <div
+          className="single-card-image"
+          style={{
+            backgroundImage: `url(${listing.image})`,
+          }}
+        />
+        {listing.title}
+        {`$ ${listing.rental}`}
+        <EnquiryForm />
+      </main>
+    </>
   )
 }
 

@@ -34,15 +34,11 @@ const Login = () => {
       setAuth({ username, accessToken, id })
       setUsername("")
       setPwd("")
-      localStorage.setItem("token", accessToken)
+      localStorage.setItem("accessToken", accessToken)
       navigate("/admin")
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response")
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password")
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized")
       } else {
         setErrMsg("Login Failed")
       }

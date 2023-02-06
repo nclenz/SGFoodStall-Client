@@ -3,6 +3,7 @@ import { useState } from "react"
 import AuthContext from "../Context/AuthProvider"
 import Select from "react-select"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const AddListing = () => {
   const { auth } = useContext(AuthContext)
@@ -16,6 +17,8 @@ const AddListing = () => {
     desc: "",
     cuisine: [],
   })
+
+  const navigate = useNavigate()
 
   const cuisineOptions = [
     { value: "Thai", label: "Thai" },
@@ -55,8 +58,8 @@ const AddListing = () => {
       formData.append("cuisine", newListing.cuisine)
       formData.append("desc", newListing.desc)
       formData.append("image", e.target.image.files[0])
-      const response = await axios.post("/api/listings/create", formData)
-      console.log(response.data)
+      await axios.post("/api/listings/create", formData)
+      navigate("/admin")
     } catch (error) {
       console.log(error.message)
     }

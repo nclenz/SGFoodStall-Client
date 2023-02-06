@@ -47,9 +47,10 @@ const Content = () => {
                 <h3 className="card-subtitle">Location: {listing.location}</h3>
 
                 <h3 className="card-title">
-                  Rental: {listing.rental}/month{" "}
+                  Rental: ${listing.rental}/month{" "}
                   {listing.negotiable ? "Negotiable" : null}
                 </h3>
+                <p>Posted by {listing.user.username}</p>
               </div>
             </div>
           ))}
