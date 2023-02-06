@@ -5,6 +5,7 @@ import AdminLayout from "./pages/AdminLayout"
 import Homepage from "./pages/Homepage"
 import Login from "./pages/Login"
 import PublicLayout from "./pages/PublicLayout"
+import SingleListing from "./pages/SingleListing"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<Homepage />} />
+            <Route path=":id" element={<SingleListing />} />
             <Route path="/login" element={<Login />} />
 
             <Route path="admin" element={<AdminLayout />}>
