@@ -1,12 +1,15 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import SearchBar from "./SearchBar"
 
 const Content = () => {
   const [listings, setListings] = useState("")
+  const [searchResult, setSearchResult] = useState("")
 
   const fetchAllListings = async () => {
     const response = await axios.get("/api/listings/all")
     setListings(response.data)
+    setSearchResult(response.data)
     console.log(response)
   }
 
@@ -16,10 +19,11 @@ const Content = () => {
 
   return (
     <>
+      <SearchBar setSearchResult={setSearchResult} listings={listings} />
       <div className="image-grid">
         {listings.length &&
-          listings.map((listing) => (
-            <div key={listing._id} className="container">
+          searchResult.map((listing) => (
+            <div key={searchResult._id} className="container">
               <div
                 className="card-image"
                 style={{
@@ -29,7 +33,11 @@ const Content = () => {
 
               <h3 className="card-title"> {listing.title}</h3>
               <h3 className="card-subtitle">Location: {listing.location}</h3>
-              <h3 className="card-title">Rental: {listing.rental}</h3>
+
+              <h3 className="card-title">
+                Rental: {listing.rental}/month{" "}
+                {listing.negotiable ? "Negotiable" : null}
+              </h3>
             </div>
           ))}
       </div>
