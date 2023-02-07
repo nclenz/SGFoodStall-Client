@@ -13,9 +13,12 @@ const Logout = () => {
   }
 
   return (
-    <button class="pure-button" onClick={() => handleLogOut()}>
-      Logout
-    </button>
+    <a
+      className="block px-4 py-2 text-sm text-gray-700"
+      onClick={() => handleLogOut()}
+    >
+      Sign Out
+    </a>
   )
 }
 

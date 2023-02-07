@@ -18,7 +18,7 @@
 
 body {
   min-height: 100vh;
-  background-color: #f5f5dc;
+  background-color: #fcfcfc;
 }
 .add_listing,
 .login_page {
@@ -68,8 +68,8 @@ a:visited {
   color: black;
 }
 
-input[type="text"],
-input[type="password"],
+input[id="username"],
+input[id="pwd"],
 button,
 textarea {
   font-family: "Nunito", sans-serif;
@@ -116,4 +116,5 @@ button {
 .container {
   background-color: white;
   border-radius: 10px;
+  border: solid 0.5px grey;
 }

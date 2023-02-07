@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<Homepage />} />
-            <Route path=":id" element={<SingleListing />} />
+            <Route path="/listing/:id" element={<SingleListing />} />
             <Route path="/login" element={<Login />} />
 
             {/*Protected Route */}
@@ -27,9 +27,9 @@ function App() {
               </Route>
             </Route>
             {/*End Protected Route */}
+            {/* catch all other routes */}
+            <Route path="*" element={<Missing />} />
           </Route>
-          {/* catch all other routes */}
-          <Route path="*" element={<Missing />} />
         </Routes>
       </BrowserRouter>
     </div>

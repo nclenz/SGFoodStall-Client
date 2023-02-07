@@ -21,7 +21,6 @@ const SingleListing = () => {
 
   return (
     <>
-      <Navbar />
       <main className="selected_listing_page">
         <div
           className="single-card-image"
