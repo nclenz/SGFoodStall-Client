@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import AdminDash from "./component/AdminDash"
+import AdminListing from "./component/AdminListing"
 import ProtectedRoute from "./component/auth/ProtectedRoute"
 import AddListing from "./pages/AddListing"
+import AdminDashboard from "./pages/AdminDashboard"
 import AdminLayout from "./pages/AdminLayout"
 import Homepage from "./pages/Homepage"
 import Login from "./pages/Login"
@@ -22,8 +23,9 @@ function App() {
             {/*Protected Route */}
             <Route element={<ProtectedRoute />}>
               <Route path="admin" element={<AdminLayout />}>
-                <Route index element={<AdminDash />} />
+                <Route index element={<AdminListing />} />
                 <Route path="/admin/create" element={<AddListing />} />
+                <Route path="/admin/dash" element={<AdminDashboard />} />
               </Route>
             </Route>
             {/*End Protected Route */}

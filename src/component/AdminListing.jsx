@@ -1,37 +1,52 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
+import { useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import SearchBar from "./SearchBar"
+import AuthContext from "../Context/AuthProvider"
 
-const Content = () => {
-  const [listings, setListings] = useState("")
-  const [searchResult, setSearchResult] = useState("")
+const AdminListing = () => {
+  const { auth } = useContext(AuthContext)
+  const [listings, setListings] = useState({
+    image: "",
+    title: "",
+    location: "",
+    condition: "",
+    rental: 0,
+    desc: "",
+    cuisine: [],
+  })
+
   const navigate = useNavigate()
 
   const fetchAllListings = async () => {
     const response = await axios.get("/api/listings/all")
-    setListings(response.data)
-    setSearchResult(response.data)
+    const allListings = response.data
+
+    const ownListings = allListings.filter(
+      (listing) => listing.user._id === auth.id
+    )
+    setListings(ownListings)
   }
 
   useEffect(() => {
     fetchAllListings()
   }, [])
 
-  const handleClick = (id) => {
-    navigate(`/listing/${id}`)
-  }
+  // const handleEdit = (e) => {
+  //   e.preventDefault()
+  //   setIsDisabled(!isDisabled)
+  // }
 
   return (
     <>
-      <SearchBar setSearchResult={setSearchResult} listings={listings} />
-
       <div className="bg-white">
+        <button onClick={() => navigate("/admin/create")}>Add Listing</button>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h2 className="sr-only">Products</h2>
+          <h2 className="sr-only">All Listings</h2>
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
             {listings.length &&
-              searchResult.map((listing) => (
+              listings.map((listing) => (
                 <div
                   key={listing._id}
                   className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
@@ -70,4 +85,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default AdminListing

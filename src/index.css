@@ -50,8 +50,10 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem;
-  background-color: rgb(30, 143, 255);
+  background-color: rgba(196, 200, 204, 0.405);
   border-radius: 10px;
+  border: solid 0.5px grey;
+  box-shadow: 5px 5px;
 }
 
 form {
@@ -81,10 +83,6 @@ textarea {
 label,
 button {
   margin-top: 1rem;
-}
-
-button {
-  padding: 0.5rem;
 }
 
 .offscreen {

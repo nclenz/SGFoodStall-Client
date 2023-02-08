@@ -14,8 +14,13 @@ export const AuthProvider = ({ children }) => {
   const fetchAuthUser = async () => {
     try {
       const response = await axios.get("/api/auth/user")
+      console.log(response.data)
       if (response.data.username) {
-        setAuth({ ...auth, username: response.data.username })
+        setAuth({
+          ...auth,
+          id: response.data._id,
+          username: response.data.username,
+        })
       }
     } catch (error) {}
   }

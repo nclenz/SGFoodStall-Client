@@ -31,11 +31,11 @@ const Login = () => {
       })
       const accessToken = response?.data?.accessToken
       const id = response?.data?.id
-      setAuth({ username, accessToken, id })
-      setUsername("")
-      setPwd("")
+      setAuth({ username, id })
       localStorage.setItem("accessToken", accessToken)
       navigate("/admin")
+      setUsername("")
+      setPwd("")
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response")

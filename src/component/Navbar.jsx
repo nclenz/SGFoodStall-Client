@@ -3,7 +3,6 @@ import { Disclosure, Menu, Transition } from "@headlessui/react"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import { Link, useNavigate } from "react-router-dom"
 import AuthContext from "../Context/AuthProvider"
-import Logout from "./Logout"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -26,26 +25,48 @@ const Navbar = () => {
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex px-2 lg:px-0">
-                <div
-                  className="flex flex-shrink-0 items-center"
-                  onClick={() => navigate("/")}
-                >
-                  <h2>SG FoodStall</h2>
+                <Link to="/" className="flex flex-shrink-0 items-center">
+                  <a href="/">SG FoodStall</a>
                   <img
                     className="hidden h-8 w-auto lg:block"
                     src="/SGFoodStallLogo.jpg"
                     alt="Your Company"
                   />
-                </div>
+                </Link>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
-                  <div className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
-                    {auth.accessToken ? (
-                      <Link to="/admin">
-                        <h1>Management</h1>
+                  {auth.id ? (
+                    <>
+                      <Link
+                        to="/admin"
+                        href="#"
+                        className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                      >
+                        Manage Listing
                       </Link>
+                      <Link
+                        to="/admin/dash"
+                        href="#"
+                        className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                      >
+                        Dashboard
+                      </Link>{" "}
+                    </>
+                  ) : null}
+                </div>
+                {/* <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
+                  <div className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
+                    {auth.id ? (
+                      <>
+                        <Link to="/admin">
+                          <h1>Manage Listing</h1>
+                        </Link>
+                        <Link to="/admin/dash">
+                          <h1>Dashboard</h1>
+                        </Link>
+                      </>
                     ) : null}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="flex items-center lg:hidden">
@@ -60,27 +81,22 @@ const Navbar = () => {
                 </Disclosure.Button>
               </div>
               <div className="hidden lg:ml-4 lg:flex lg:items-center">
-                {!auth.accessToken ? (
-                  <button
+                {!auth.id ? (
+                  <a
                     type="button"
+                    href="#"
                     className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
-                    <span className="sr-only">Login</span>
-                    <h3 onClick={() => navigate("/login")}>Login</h3>
-                  </button>
-                ) : null}
-                {/* Profile dropdown */}
-                {auth.accessToken ? (
+                    <span className="sr-only">Sign In</span>
+                    <h3 onClick={() => navigate("/login")}>Sign In</h3>
+                  </a>
+                ) : (
                   <Menu as="div" className="relative ml-4 flex-shrink-0">
                     <div>
                       <Menu.Button className="flex rounded-sm bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
-                        <div
-                          className="h-8 w-15 rounded-sm"
-                          // src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          // alt=""
-                        >
-                          Hi {auth.username}
+                        <div className="h-8 w-15 rounded-sm">
+                          Hi {auth.username} !
                         </div>
                       </Menu.Button>
                     </div>
@@ -109,15 +125,16 @@ const Navbar = () => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
+                            <Link
+                              to="/admin/dash"
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Settings
-                            </a>
+                              Dashboard
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
@@ -136,13 +153,14 @@ const Navbar = () => {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                ) : null}
+                )}
+                {/* Profile dropdown */}
               </div>
             </div>
           </div>
+
           <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 pt-2 pb-3">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" */}
               <Disclosure.Button
                 as="a"
                 href="#"
@@ -153,75 +171,53 @@ const Navbar = () => {
               <Disclosure.Button
                 as="a"
                 href="#"
+                onClick={() => navigate("/admin")}
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
               >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
-              >
-                Calendar
+                Manage Listing
               </Disclosure.Button>
             </div>
             <div className="border-t border-gray-200 pt-4 pb-3">
               <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
                 <div className="ml-3">
                   <div className="text-base font-medium text-gray-800">
-                    Tom Cook
-                  </div>
-                  <div className="text-sm font-medium text-gray-500">
-                    tom@example.com
+                    {auth.username}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  <span className="sr-only">View notifications</span>
-                  {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                </button>
               </div>
               <div className="mt-3 space-y-1">
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Your Profile
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  onClick={() => handleLogOut()}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                >
-                  Sign out
-                </Disclosure.Button>
+                {auth.id ? (
+                  <>
+                    <Disclosure.Button
+                      as="a"
+                      href="#"
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                    >
+                      Change Password
+                    </Disclosure.Button>
+                    <Disclosure.Button
+                      as="a"
+                      href="#"
+                      onClick={() => handleLogOut()}
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                    >
+                      Sign out
+                    </Disclosure.Button>
+                  </>
+                ) : (
+                  <Disclosure.Button
+                    as="a"
+                    href="#"
+                    onClick={() => navigate("/login")}
+                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  >
+                    Sign In
+                  </Disclosure.Button>
+                )}
               </div>
             </div>
           </Disclosure.Panel>
+          {/* )} */}
         </>
       )}
     </Disclosure>
@@ -229,32 +225,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
-// import React from "react"
-// import { useContext } from "react"
-// import { Link } from "react-router-dom"
-// import { useNavigate } from "react-router-dom"
-// import AuthContext from "../Context/AuthProvider"
-// import Logout from "./Logout"
-
-// const Navbar = () => {
-//   const { auth } = useContext(AuthContext)
-//   const navigate = useNavigate()
-//   return (
-//     <div className="nav">
-//       <Link to="/">SG Food Stall</Link>
-
-//       {!auth.accessToken ? (
-//         <button onClick={() => navigate("/login")}>Login</button>
-//       ) : (
-//         <Logout />
-//       )}
-
-//       {auth.accessToken ? (
-//         <button onClick={() => navigate("/admin")}>Dashboard</button>
-//       ) : null}
-//     </div>
-//   )
-// }
-
-// export default Navbar

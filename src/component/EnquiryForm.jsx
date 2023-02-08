@@ -21,7 +21,11 @@ const EnquiryForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form
+        className="border border-gray-300 p-5 rounded-lg bg-slate-50"
+        onSubmit={handleSubmit}
+      >
+        <title>Enquiry Form</title>
         <label htmlFor="name">Name: </label>
         <input
           type="text"
@@ -51,7 +55,7 @@ const EnquiryForm = () => {
         <textarea
           id="msg"
           cols="30"
-          rows="10"
+          rows="3"
           placeholder="Messages"
           onChange={(e) => setEnquiry({ ...enquiry, msg: e.target.value })}
         />

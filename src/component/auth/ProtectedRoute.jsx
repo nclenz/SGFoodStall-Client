@@ -5,7 +5,7 @@ import AuthContext from "../../Context/AuthProvider"
 const ProtectedRoute = () => {
   const { auth } = useContext(AuthContext)
 
-  return auth.accessToken ? <Outlet /> : <Navigate to="/login" />
+  return auth.id ? <Outlet /> : <Navigate to="/login" />
 }
 
 export default ProtectedRoute
