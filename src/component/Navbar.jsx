@@ -25,48 +25,39 @@ const Navbar = () => {
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex px-2 lg:px-0">
-                <Link to="/" className="flex flex-shrink-0 items-center">
-                  <a href="/">SG FoodStall</a>
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="/SGFoodStallLogo.jpg"
-                    alt="Your Company"
-                  />
-                </Link>
+                <div className="flex flex-shrink-0 items-center">
+                  <Link
+                    to="/"
+                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  >
+                    <a href="/">SG FoodStall</a>
+                    <img
+                      className="hidden h-8 w-auto lg:block"
+                      src="/SGFoodStallLogo.jpg"
+                      alt="Your Company"
+                    />
+                  </Link>
+                </div>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
                   {auth.id ? (
                     <>
                       <Link
                         to="/admin"
                         href="#"
-                        className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                        className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                       >
                         Manage Listing
                       </Link>
                       <Link
                         to="/admin/dash"
                         href="#"
-                        className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                       >
                         Dashboard
-                      </Link>{" "}
+                      </Link>
                     </>
                   ) : null}
                 </div>
-                {/* <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
-                  <div className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
-                    {auth.id ? (
-                      <>
-                        <Link to="/admin">
-                          <h1>Manage Listing</h1>
-                        </Link>
-                        <Link to="/admin/dash">
-                          <h1>Dashboard</h1>
-                        </Link>
-                      </>
-                    ) : null}
-                  </div>
-                </div> */}
               </div>
 
               <div className="flex items-center lg:hidden">
@@ -88,14 +79,14 @@ const Navbar = () => {
                     className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <span className="sr-only">Sign In</span>
-                    <h3 onClick={() => navigate("/login")}>Sign In</h3>
+                    <h3 onClick={() => navigate("/login")}>Admin Login</h3>
                   </a>
                 ) : (
                   <Menu as="div" className="relative ml-4 flex-shrink-0">
                     <div>
                       <Menu.Button className="flex rounded-sm bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
-                        <div className="h-8 w-15 rounded-sm">
+                        <div className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                           Hi {auth.username} !
                         </div>
                       </Menu.Button>

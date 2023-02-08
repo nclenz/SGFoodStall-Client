@@ -16,7 +16,7 @@ const SearchBar = ({ setSearchResult, listings }) => {
     setSearchResult(resultsArray)
   }
   return (
-    <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-center my-5 ">
+    <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-center my-5  ">
       <div className="w-full max-w-lg lg:max-w-xs ">
         <label htmlFor="search" className="sr-only">
           Search

@@ -73,7 +73,7 @@ const AddListing = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8"></div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 "></div>
       <div className="formContainer m-10 p-10">
         <form
           encType="multipart/form-data"
@@ -342,117 +342,6 @@ const AddListing = () => {
         </Dialog>
       </Transition.Root>
     </>
-    // <main className="add_listing">
-    //   <div className="add_listing_form">
-    //     <form onSubmit={handleSubmit}>
-    // <label htmlFor="image" className="car-form__label">
-    //   Upload an image:
-    // </label>
-    // <input type="file" className="form-control-file" name="image" />
-    //       <label htmlFor="title"> Title: </label>
-    //       <input
-    //         type="text"
-    //         id="title"
-    //         required
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, title: e.target.value })
-    //         }
-    //       />
-    //       <label htmlFor="location">Location: </label>
-    //       <input
-    //         autoComplete="off"
-    //         type="text"
-    //         id="location"
-    //         required
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, location: e.target.value })
-    //         }
-    //       />
-    //       <label htmlFor="condition">Condition: </label>
-    //       <select
-    //         type="text"
-    //         id="condition"
-    //         required
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, condition: e.target.value })
-    //         }
-    //       >
-    //         <option value="Bare">Bare</option>
-    //         <option value="Partial Furnish">Partial Furnish</option>
-    //         <option value="Fully Furnished">Fully Furnished</option>
-    //       </select>
-    //       <label htmlFor="rental">Rental: </label>
-    //       <input
-    //         type="number"
-    //         id="rental"
-    //         required
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, rental: e.target.value })
-    //         }
-    //       />
-    //       <span>
-    //         <label>Negotiable: </label>
-    //         <label htmlFor="true">True</label>
-    //         <input
-    //           type="radio"
-    //           id="negotiableTrue"
-    //           value="true"
-    //           onChange={(e) =>
-    //             setNewListing({ ...newListing, negotiable: e.target.value })
-    //           }
-    //         />
-    //         <label htmlFor="false">False</label>
-    //         <input
-    //           type="radio"
-    //           id="false"
-    //           value="false"
-    //           onChange={(e) =>
-    //             setNewListing({ ...newListing, negotiable: e.target.value })
-    //           }
-    //         />
-    //       </span>
-    //       <label htmlFor="availability">Availability: </label>
-    //       <input
-    //         type="text"
-    //         id="availability"
-    //         autoComplete="off"
-    //         required
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, availability: e.target.value })
-    //         }
-    //       />
-    //       <div>
-    //         <label>Cuisine:</label>
-
-    //         <Select
-    //           isMulti
-    //           options={cuisineOptions}
-    //           value={selectedCuisines.map((value) => ({ value }))}
-    //           onChange={(selectedOption) => {
-    //             setSelectedCuisines(
-    //               selectedOption.map((option) => option.value)
-    //             )
-    //             setNewListing({
-    //               ...newListing,
-    //               cuisine: selectedOption.map((option) => option.value),
-    //             })
-    //           }}
-    //           getOptionLabel={(option) => option.value}
-    //           getOptionValue={(option) => option.value}
-    //         />
-    //       </div>
-    //       <label htmlFor="desc">Description:</label>
-    //       <textarea
-    //         id="desc"
-    //         onChange={(e) =>
-    //           setNewListing({ ...newListing, desc: e.target.value })
-    //         }
-    //       />
-
-    //       <button>Submit</button>
-    //     </form>
-    //   </div>
-    // </main>
   )
 }
 
