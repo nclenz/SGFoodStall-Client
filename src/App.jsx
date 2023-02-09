@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import AdminListing from "./component/AdminListing"
 import ProtectedRoute from "./component/auth/ProtectedRoute"
+// import NoListing from "./component/NoListing"
 import AddListing from "./pages/AddListing"
 import AdminDashboard from "./pages/AdminDashboard"
 import AdminLayout from "./pages/AdminLayout"

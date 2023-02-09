@@ -50,7 +50,7 @@ const Content = () => {
           value={rentalRange}
           id="filterRent"
           onChange={handleRentalRangeChange}
-          className="form-select block w-full sm:w-auto border-yellow-300"
+          className="form-select block w-full sm:w-auto border"
         >
           <option value="">All</option>
           <option value="below2k">Below $2,000</option>
@@ -62,12 +62,12 @@ const Content = () => {
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
+        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">
           {listings.length &&
             searchResult.map((listing) => (
               <div
                 key={listing._id}
-                className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
+                className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white  cursor-pointer"
               >
                 <div className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
                   <img

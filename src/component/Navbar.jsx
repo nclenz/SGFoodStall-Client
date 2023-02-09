@@ -15,6 +15,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     localStorage.removeItem("accessToken")
     setAuth({})
+    alert("Logged out")
     navigate("/")
   }
 
