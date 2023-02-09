@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const fetchOwnListings = async () => {
     const response = await axios.get("/api/enquiry/all")
     const allEnquiries = response.data
+    console.log(allEnquiries)
     const ownEnquiries = allEnquiries.filter(
       (enquiry) => enquiry.id.user === auth.id
     )
@@ -63,12 +64,7 @@ const AdminDashboard = () => {
                         >
                           Message
                         </th>
-                        <th
-                          scope="col"
-                          className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-                        >
-                          Stage
-                        </th>
+
                         <th
                           scope="col"
                           className="relative py-3.5 pl-3 pr-4 sm:pr-6"
@@ -102,7 +98,9 @@ const AdminDashboard = () => {
                               </div>
                             </td>
                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-                              <div className="font-medium text-gray-900"></div>
+                              <div className="font-medium text-gray-900">
+                                {enquiry.msg}
+                              </div>
                             </td>
                           </tr>
                         ))}
