@@ -67,6 +67,7 @@ const AddListing = () => {
       formData.append("image", e.target.image.files[0])
       await axios.post("/api/listings/create", formData)
       navigate("/admin")
+      console.log(newListing.location)
     } catch (error) {
       console.log(error.message)
     }
@@ -107,10 +108,12 @@ const AddListing = () => {
                 <select
                   id="location"
                   required
+                  defaultValue={districtData[0]}
                   onChange={(e) =>
                     setNewListing({ ...newListing, location: e.target.value })
                   }
                 >
+                  <option value="">Select location</option>
                   {Object.keys(districtData).map((districtCode) => (
                     <option
                       key={districtCode}

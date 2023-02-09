@@ -42,18 +42,22 @@ const Content = () => {
   }
 
   const handleLocationChange = (e) => {
-    setSearchResult(
-      listings.filter((listing) => {
-        if (e.target.value === "") return true
-        for (const key in districtData) {
-          if (key === e.target.value) {
-            return districtData[key].includes(listing.location)
-          }
-        }
-      })
+    const filtered = listings.filter(
+      (listing) => listing.location === e.target.value
     )
-    setLocations(e.target.value)
+    setSearchResult(filtered)
+    return setLocations(filtered)
   }
+
+  // const handleLocationChange = (e) => {
+  //   setSearchResult(
+  //     const filtered = listings.filter((listing) => {
+  //       listing.location !== e.target.value
+  //       console.log(listing.location)
+  //     })
+  //   )
+  //   return setLocations(e.target.value)
+  // }
 
   return (
     <div className="bg-slate-50">
@@ -89,19 +93,15 @@ const Content = () => {
           className="form-select block w-full sm:w-auto border rounded"
         >
           <option value="">All</option>
-          {Object.keys(districtData).map((districtCode) => (
-            <option
-              key={districtCode}
-              value={districtData[districtCode].join(", ")}
-            >
-              {districtData[districtCode].join(", ")}
+          {Object.values(districtData).map((district, index) => (
+            <option key={index} value={district.join(", ")}>
+              {district.join(", ")}
             </option>
           ))}
         </select>
       </div>
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="sr-only">Products</h2>
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">
           {listings.length &&
             searchResult.map((listing) => (

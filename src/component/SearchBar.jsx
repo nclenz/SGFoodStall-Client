@@ -12,9 +12,9 @@ const SearchBar = ({ setSearchResult, listings }) => {
         listing.desc.toLowerCase().includes(searchQuery) ||
         listing.location.toLowerCase().includes(searchQuery)
     )
-
     setSearchResult(resultsArray)
   }
+
   return (
     <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-center my-5  ">
       <div className="w-full max-w-lg lg:max-w-xs ">
