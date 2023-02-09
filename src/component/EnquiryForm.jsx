@@ -1,22 +1,33 @@
-import { useContext, useState, useRef } from "react"
+import axios from "axios"
+import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
-import AuthContext from "../Context/AuthProvider"
-
-const EnquiryForm = () => {
-  const { auth } = useContext(AuthContext)
+const EnquiryForm = (listingID) => {
   const errRef = useRef()
   const [errMsg, setErrMsg] = useState("")
 
+  const navigate = useNavigate()
+
   const [enquiry, setEnquiry] = useState({
-    user: auth.id,
+    id: "",
     name: "",
     email: "",
     mobile: "",
     msg: "",
   })
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (listingID.listingID) {
+      setEnquiry({ ...enquiry, id: listingID.listingID })
+    }
+  }, [listingID])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(enquiry)
+    const post = await axios.post("/api/enquiry/send", enquiry)
+    alert("Enquiry Sent. We will get back to you within 3 working days")
+    navigate("/")
   }
 
   return (

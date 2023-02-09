@@ -2,11 +2,13 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "./SearchBar"
+import districtData from "../data/districtData"
 
 const Content = () => {
   const [listings, setListings] = useState("")
   const [searchResult, setSearchResult] = useState("")
   const [rentalRange, setRentalRange] = useState("")
+  const [locations, setLocations] = useState("")
   const navigate = useNavigate()
 
   const fetchAllListings = async () => {
@@ -39,9 +41,24 @@ const Content = () => {
     setRentalRange(e.target.value)
   }
 
+  const handleLocationChange = (e) => {
+    setSearchResult(
+      listings.filter((listing) => {
+        if (e.target.value === "") return true
+        for (const key in districtData) {
+          if (key === e.target.value) {
+            return districtData[key].includes(listing.location)
+          }
+        }
+      })
+    )
+    setLocations(e.target.value)
+  }
+
   return (
     <div className="bg-slate-50">
       <SearchBar setSearchResult={setSearchResult} listings={listings} />
+      {/* Filter by Rent*/}
       <div className="flex justify- mb-6">
         <label htmlFor="filterRent" className="block m-2">
           Filter by Rent
@@ -50,13 +67,36 @@ const Content = () => {
           value={rentalRange}
           id="filterRent"
           onChange={handleRentalRangeChange}
-          className="form-select block w-full sm:w-auto border"
+          className="form-select block w-full sm:w-auto border rounded"
         >
           <option value="">All</option>
           <option value="below2k">Below $2,000</option>
           <option value="2k-5k">$2,000 - $5,000</option>
           <option value="5k-10k">$5,000 - $10,000</option>
           <option value="moreThan10k">More than $10,000</option>
+        </select>
+      </div>
+
+      {/* Filter by Location*/}
+      <div className="flex justify- mb-6">
+        <label htmlFor="filterLocation" className="block m-2">
+          Filter by Location
+        </label>
+        <select
+          value={locations}
+          id="filterLocation"
+          onChange={handleLocationChange}
+          className="form-select block w-full sm:w-auto border rounded"
+        >
+          <option value="">All</option>
+          {Object.keys(districtData).map((districtCode) => (
+            <option
+              key={districtCode}
+              value={districtData[districtCode].join(", ")}
+            >
+              {districtData[districtCode].join(", ")}
+            </option>
+          ))}
         </select>
       </div>
 

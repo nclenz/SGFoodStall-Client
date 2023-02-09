@@ -6,18 +6,22 @@ import { useNavigate } from "react-router-dom"
 
 const SingleListing = () => {
   const [listing, setListing] = useState({})
+  const [listingID, setListingID] = useState("")
   const navigate = useNavigate()
 
   const { id } = useParams()
   const fetchSelectedListing = async () => {
     const response = await axios.get(`/api/listings/${id}`)
     setListing(response.data)
-    console.log(response.data)
+    // console.log(listingID)
+    // console.log(response.data)
   }
 
   useEffect(() => {
+    setListingID(id)
     fetchSelectedListing()
   }, [])
+  console.log(listingID)
 
   return (
     <div className="border border-gray-300  bg-slate-50">
@@ -38,7 +42,7 @@ const SingleListing = () => {
                 Express Interest
               </h1>
             </div>
-            <EnquiryForm />
+            <EnquiryForm listingID={listingID} />
           </section>
         </div>
         {/* Title */}

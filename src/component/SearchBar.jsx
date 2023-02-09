@@ -29,7 +29,7 @@ const SearchBar = ({ setSearchResult, listings }) => {
             />
           </div>
           <input
-            className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+            className="block w-full mt-10 rounded-md border-2 border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-lg"
             type="text"
             placeholder="Search keywords"
             id="search"

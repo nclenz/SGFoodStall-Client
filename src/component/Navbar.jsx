@@ -77,7 +77,7 @@ const Navbar = () => {
                   <a
                     type="button"
                     href="#"
-                    className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
                   >
                     <span className="sr-only">Sign In</span>
                     <h3 onClick={() => navigate("/login")}>Admin Login</h3>
@@ -85,11 +85,11 @@ const Navbar = () => {
                 ) : (
                   <Menu as="div" className="relative ml-4 flex-shrink-0">
                     <div>
-                      <Menu.Button className="flex rounded-sm bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      <Menu.Button className="flex rounded-sm bg-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
-                        <div className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        <h3 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 ">
                           Hi {auth.username} !
-                        </div>
+                        </h3>
                       </Menu.Button>
                     </div>
                     <Transition
