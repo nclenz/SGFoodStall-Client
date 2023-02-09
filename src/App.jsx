@@ -4,6 +4,8 @@ import ProtectedRoute from "./component/auth/ProtectedRoute"
 import AddListing from "./pages/AddListing"
 import AdminDashboard from "./pages/AdminDashboard"
 import AdminLayout from "./pages/AdminLayout"
+import ChangePwd from "./pages/ChangePwd"
+import EditListing from "./pages/EditListing"
 import Homepage from "./pages/Homepage"
 import Login from "./pages/Login"
 import Missing from "./pages/Missing"
@@ -24,6 +26,8 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="admin" element={<AdminLayout />}>
                 <Route index element={<AdminListing />} />
+                <Route path="/admin/changepwd" element={<ChangePwd />} />
+                <Route path="/admin/edit/:id" element={<EditListing />} />
                 <Route path="/admin/create" element={<AddListing />} />
                 <Route path="/admin/dash" element={<AdminDashboard />} />
               </Route>

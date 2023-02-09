@@ -20,6 +20,7 @@ body {
   min-height: 100vh;
   background-color: #fcfcfc;
 }
+.changePwd_page,
 .add_listing,
 .login_page {
   font-family: "Nunito", sans-serif;
@@ -42,6 +43,7 @@ body {
   background-color: white;
 }
 .add_listing_form,
+.changePwd,
 .login {
   width: 100%;
   max-width: 420px;
@@ -72,6 +74,8 @@ a:visited {
 
 input[id="username"],
 input[id="pwd"],
+input[id="oldPwd"],
+input[id="newPwd"],
 button,
 textarea {
   font-family: "Nunito", sans-serif;

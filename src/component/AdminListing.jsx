@@ -33,15 +33,16 @@ const AdminListing = () => {
     fetchAllListings()
   }, [])
 
-  // const handleEdit = (e) => {
-  //   e.preventDefault()
-  //   setIsDisabled(!isDisabled)
-  // }
-
   return (
     <>
-      <div className="bg-white">
-        <button onClick={() => navigate("/admin/create")}>Add Listing</button>
+      <div className="bg-slate-50">
+        <button
+          className="border-2 flex mt-8 mr-60 float-right"
+          onClick={() => navigate("/admin/create")}
+        >
+          Add Listing
+        </button>
+
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">All Listings</h2>
           <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
@@ -49,6 +50,7 @@ const AdminListing = () => {
               listings.map((listing) => (
                 <div
                   key={listing._id}
+                  onClick={() => navigate(`/admin/edit/${listing._id}`)}
                   className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
                 >
                   <div className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
@@ -60,7 +62,7 @@ const AdminListing = () => {
                   </div>
                   <div className="flex flex-1 flex-col space-y-2 p-4">
                     <h3 className="text-sm font-medium text-gray-900">
-                      <a onClick={() => handleClick(listing._id)}>
+                      <a>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {listing.title}
                       </a>

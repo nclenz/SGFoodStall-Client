@@ -131,6 +131,20 @@ const Navbar = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
+                              href="#"
+                              onClick={() => navigate("/admin/changepwd")}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Change Password
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
                               onClick={() => handleLogOut()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
@@ -182,6 +196,7 @@ const Navbar = () => {
                     <Disclosure.Button
                       as="a"
                       href="#"
+                      onClick={() => navigate("/admin/changepwd")}
                       className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                     >
                       Change Password
