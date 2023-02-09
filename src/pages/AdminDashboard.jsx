@@ -22,7 +22,7 @@ const AdminDashboard = () => {
   }, [])
   return (
     <>
-      {enquiryForm?.length ? (
+      {enquiryForm.length ? (
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
@@ -102,9 +102,7 @@ const AdminDashboard = () => {
                               </div>
                             </td>
                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-                              <div className="font-medium text-gray-900">
-                                {enquiry.msg ? enquiry.msg : <NoEnquiry />}
-                              </div>
+                              <div className="font-medium text-gray-900"></div>
                             </td>
                           </tr>
                         ))}
@@ -115,7 +113,9 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <NoEnquiry />
+      )}
     </>
   )
 }

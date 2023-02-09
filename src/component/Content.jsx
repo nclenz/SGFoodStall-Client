@@ -49,16 +49,6 @@ const Content = () => {
     return setLocations(filtered)
   }
 
-  // const handleLocationChange = (e) => {
-  //   setSearchResult(
-  //     const filtered = listings.filter((listing) => {
-  //       listing.location !== e.target.value
-  //       console.log(listing.location)
-  //     })
-  //   )
-  //   return setLocations(e.target.value)
-  // }
-
   return (
     <div className="bg-slate-50">
       <SearchBar setSearchResult={setSearchResult} listings={listings} />
@@ -71,7 +61,7 @@ const Content = () => {
           value={rentalRange}
           id="filterRent"
           onChange={handleRentalRangeChange}
-          className="form-select block w-full sm:w-auto border rounded"
+          className="form-select block w-full sm:w-auto border-2 rounded-md border-gray-400 "
         >
           <option value="">All</option>
           <option value="below2k">Below $2,000</option>
@@ -90,7 +80,7 @@ const Content = () => {
           value={locations}
           id="filterLocation"
           onChange={handleLocationChange}
-          className="form-select block w-full sm:w-auto border rounded"
+          className="form-select block w-full sm:w-auto  border-2 rounded-md border-gray-400"
         >
           <option value="">All</option>
           {Object.values(districtData).map((district, index) => (
