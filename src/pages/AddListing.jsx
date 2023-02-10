@@ -8,6 +8,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import { XMarkIcon } from "@heroicons/react/20/solid"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 import districtData from "../data/districtData"
+import cuisineOptions from "../data/cuisineOptions"
 
 const AddListing = () => {
   const { auth } = useContext(AuthContext)
@@ -26,29 +27,6 @@ const AddListing = () => {
 
   const cancelButtonRef = useRef(null)
   const navigate = useNavigate()
-
-  const cuisineOptions = [
-    { value: "Thai", label: "Thai" },
-    { value: "Chinese", label: "Chinese" },
-    { value: "Indian", label: "Indian" },
-    { value: "Malay", label: "Malay" },
-    { value: "Japanese / Korean", label: "Japanese / Korean" },
-    { value: "Seafood", label: "Seafood" },
-    { value: "Western", label: "Western" },
-    { value: "Economy Rice", label: "Economy Rice" },
-    { value: "Dessert / Snack", label: "Dessert / Snack" },
-    { value: "Vietnamese", label: "Vietnamese" },
-    { value: "Fishball Noodles", label: "Fishball Noodles" },
-    {
-      value: "Chicken Rice or Roasted Delight",
-      label: "Chicken Rice or Roasted Delight",
-    },
-    { value: "Fish Soup / Ban mian", label: "Fish Soup / Ban mian" },
-    {
-      value: "Char Kway Tiao / Carrot Cake",
-      label: "Char Kway Tiao / Carrot Cake",
-    },
-  ]
 
   const handleSubmit = async (e) => {
     e.preventDefault()

@@ -11,7 +11,7 @@ const SingleListing = () => {
 
   const { id } = useParams()
   const fetchSelectedListing = async () => {
-    const response = await axios.get(`/api/listings/${id}`)
+    const response = await axios.get(`/api/listings/listing/${id}`)
     setListing(response.data)
     // console.log(listingID)
     // console.log(response.data)

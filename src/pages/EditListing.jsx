@@ -1,13 +1,45 @@
 import axios from "axios"
+import { useEffect, useState } from "react"
+import Select from "react-select"
 import { useNavigate, useParams } from "react-router-dom"
+import districtData from "../data/districtData"
+import cuisineOptions from "../data/cuisineOptions"
 
 const EditListing = () => {
-  const navigate = useNavigate()
+  const [selectedCuisines, setSelectedCuisines] = useState([])
+  const [selectedListing, setSelectedListing] = useState([])
 
+  const [updatedListing, setUpdatedListing] = useState({
+    image: selectedListing,
+    title: "",
+    location: "",
+    condition: "Bare",
+    rental: 0,
+    desc: "",
+    cuisine: [],
+  })
+  const navigate = useNavigate()
   const { id } = useParams()
+
+  const fetchSelectedListing = async () => {
+    const response = await axios.get(`/api/listings/listing/${id}`)
+    setSelectedListing(response.data)
+    setUpdatedListing(response.data)
+  }
+
+  useEffect(() => {
+    fetchSelectedListing()
+  }, [])
+
   const handleDelete = async () => {
     await axios.delete(`/api/listings/delete/${id}`)
     alert("Listing Deleted")
+    navigate("/admin")
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await axios.put(`/api/listings/edit/${id}`, updatedListing)
+    alert("Listing Updated")
     navigate("/admin")
   }
 
@@ -23,149 +55,164 @@ const EditListing = () => {
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form action="#" method="POST">
+            <form onSubmit={handleSubmit}>
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="first-name"
+                        htmlFor="title"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        First name
+                        Title:
                       </label>
                       <input
                         type="text"
-                        name="first-name"
-                        id="first-name"
-                        autoComplete="given-name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        name="title"
+                        id="title"
+                        autoComplete="off"
+                        defaultValue={selectedListing.title}
+                        onChange={(e) =>
+                          setUpdatedListing({
+                            ...updatedListing,
+                            title: e.target.value,
+                          })
+                        }
+                        className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="last-name"
-                        className="block text-sm font-medium text-gray-700"
+                    <div className="col-span-6 sm:col-span-3 mt-10">
+                      <label htmlFor="location">Location: </label>
+                      <select
+                        className="border border-gray-300 text-lg rounded"
+                        id="location"
+                        required
+                        defaultValue={selectedListing.location}
+                        onChange={(e) =>
+                          setUpdatedListing({
+                            ...updatedListing,
+                            location: e.target.value,
+                          })
+                        }
                       >
-                        Last name
-                      </label>
-                      <input
-                        type="text"
-                        name="last-name"
-                        id="last-name"
-                        autoComplete="family-name"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
+                        <option value="">Select location</option>
+                        {Object.keys(districtData).map((districtCode) => (
+                          <option
+                            key={districtCode}
+                            value={districtData[districtCode].join(", ")}
+                          >
+                            {districtData[districtCode].join(", ")}
+                          </option>
+                        ))}
+                      </select>
                     </div>
 
                     <div className="col-span-6 sm:col-span-4">
                       <label
-                        htmlFor="email-address"
-                        className="block text-sm font-medium text-gray-700"
+                        htmlFor="rental"
+                        className="block text-lg font-medium text-gray-700 "
                       >
-                        Email address
+                        Rental:
                       </label>
                       <input
-                        type="text"
-                        name="email-address"
-                        id="email-address"
-                        autoComplete="email"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        type="number"
+                        name="rental"
+                        id="rental"
+                        autoComplete="off"
+                        defaultValue={selectedListing.rental}
+                        onChange={(e) =>
+                          setUpdatedListing({
+                            ...updatedListing,
+                            rental: e.target.value,
+                          })
+                        }
+                        className="mt-1 block w-60 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="country"
+                        htmlFor="cuisine"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Country
+                        Cuisine
                       </label>
-                      <select
-                        id="country"
-                        name="country"
-                        autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      >
-                        <option>United States</option>
-                        <option>Canada</option>
-                        <option>Mexico</option>
-                      </select>
+                      <Select
+                        isMulti
+                        options={cuisineOptions}
+                        value={selectedCuisines.map((value) => ({ value }))}
+                        onChange={(selectedOption) => {
+                          setSelectedCuisines(
+                            selectedOption.map((option) => option.value)
+                          )
+                          setUpdatedListing({
+                            ...updatedListing,
+                            cuisine: selectedOption.map(
+                              (option) => option.value
+                            ),
+                          })
+                        }}
+                        getOptionLabel={(option) => option.value}
+                        getOptionValue={(option) => option.value}
+                      />
                     </div>
 
                     <div className="col-span-6">
                       <label
-                        htmlFor="street-address"
+                        htmlFor="desc"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Street address
+                        Description:
                       </label>
-                      <input
+                      <textarea
                         type="text"
-                        name="street-address"
-                        id="street-address"
-                        autoComplete="street-address"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        name="desc"
+                        id="desc"
+                        autoComplete="off"
+                        defaultValue={selectedListing.desc}
+                        onChange={(e) =>
+                          setUpdatedListing({
+                            ...updatedListing,
+                            desc: e.target.value,
+                          })
+                        }
+                        className="mt-1 block w-80 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
                       />
                     </div>
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
-                        htmlFor="city"
+                        htmlFor="condition:"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        City
+                        Condition::
                       </label>
-                      <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        autoComplete="address-level2"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-
-                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                      <label
-                        htmlFor="region"
-                        className="block text-sm font-medium text-gray-700"
+                      <select
+                        id="condition"
+                        name="condition"
+                        autoComplete="off"
+                        defaultValue={updatedListing.condition}
+                        onChange={(e) =>
+                          setUpdatedListing({
+                            ...updatedListing,
+                            condition: e.target.value,
+                          })
+                        }
+                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
-                        State / Province
-                      </label>
-                      <input
-                        type="text"
-                        name="region"
-                        id="region"
-                        autoComplete="address-level1"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
-                    </div>
-
-                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                      <label
-                        htmlFor="postal-code"
-                        className="block text-sm font-medium text-gray-700"
+                        <option value="Bare">Bare</option>
+                        <option value="Partial Furnish">Partial Furnish</option>
+                        <option value="Fully Furnished">Fully Furnished</option>
+                      </select>
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center m-10  rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       >
-                        ZIP / Postal code
-                      </label>
-                      <input
-                        type="text"
-                        name="postal-code"
-                        id="postal-code"
-                        autoComplete="postal-code"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      />
+                        Save
+                      </button>
                     </div>
                   </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Save
-                  </button>
                 </div>
               </div>
             </form>
