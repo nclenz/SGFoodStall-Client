@@ -6,6 +6,18 @@ import AuthContext from "../../Context/AuthProvider"
 const AdminDashboard = () => {
   const { auth } = useContext(AuthContext)
   const [enquiryForm, setEnquiryForm] = useState({})
+  const [selectedEnquiryId, setSelectedEnquiryId] = useState(null)
+
+  const ENQUIRY_STATUS = [
+    "Open",
+    "Uncontactable",
+    "Failed",
+    "Following",
+    "Pending Viewing",
+    "Viewing Done",
+    "Deposit Collected",
+    "Completed",
+  ]
 
   const fetchOwnListings = async () => {
     const response = await axios.get("/api/enquiry/all")
@@ -22,16 +34,19 @@ const AdminDashboard = () => {
     fetchOwnListings()
   }, [])
 
-  const ENQUIRY_STATUS = [
-    "Open",
-    "Uncontactable",
-    "Failed",
-    "Following",
-    "Pending Viewing",
-    "Viewing Done",
-    "Deposit Collected",
-    "Completed",
-  ]
+  useEffect(() => {
+    if (!selectedEnquiryId) return
+
+    const updateStatus = async () => {
+      await axios.put(
+        `/api/enquiry/update/${selectedEnquiryId}`,
+        ...enquiryForm
+      )
+    }
+
+    updateStatus()
+  }, [enquiryForm])
+
   return (
     <>
       {enquiryForm.length ? (
@@ -146,6 +161,7 @@ const AdminDashboard = () => {
                                           : e
                                       )
                                     )
+                                    setSelectedEnquiryId(updatedEnquiry._id)
                                   }}
                                 >
                                   {ENQUIRY_STATUS.map((status, index) => (
