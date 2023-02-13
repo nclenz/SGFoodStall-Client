@@ -1,7 +1,7 @@
 import axios from "axios"
 import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import AuthContext from "../Context/AuthProvider"
+import AuthContext from "../../Context/AuthProvider"
 
 const ChangePwd = () => {
   const { auth } = useContext(AuthContext)

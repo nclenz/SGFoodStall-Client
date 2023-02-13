@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import AuthContext from "../Context/AuthProvider"
+import AuthContext from "../../Context/AuthProvider"
 import NoListing from "./NoListing"
 
 const AdminListing = () => {

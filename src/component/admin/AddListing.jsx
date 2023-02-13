@@ -1,5 +1,5 @@
 import { useContext, useState, useRef, Fragment } from "react"
-import AuthContext from "../Context/AuthProvider"
+import AuthContext from "../../Context/AuthProvider"
 import Select from "react-select"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -7,8 +7,8 @@ import { Transition, Dialog } from "@headlessui/react"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import { XMarkIcon } from "@heroicons/react/20/solid"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
-import districtData from "../data/districtData"
-import cuisineOptions from "../data/cuisineOptions"
+import districtData from "../../data/districtData"
+import cuisineOptions from "../../data/cuisineOptions"
 
 const AddListing = () => {
   const { auth } = useContext(AuthContext)
@@ -16,7 +16,7 @@ const AddListing = () => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
   const [newListing, setNewListing] = useState({
-    user: auth.id,
+    user: auth.data.id,
     title: "",
     location: "",
     condition: "Bare",
@@ -24,7 +24,6 @@ const AddListing = () => {
     desc: "",
     cuisine: [],
   })
-  console.log(auth)
 
   const cancelButtonRef = useRef(null)
   const navigate = useNavigate()
@@ -34,7 +33,7 @@ const AddListing = () => {
     try {
       const formData = new FormData()
 
-      formData.append("user", auth.id)
+      formData.append("user", auth.data.id)
       formData.append("title", newListing.title)
       formData.append("location", newListing.location)
       formData.append("condition", newListing.condition)
@@ -51,6 +50,7 @@ const AddListing = () => {
       console.log(error.message)
     }
   }
+  console.log(auth)
 
   return (
     <>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import SearchBar from "./SearchBar"
 import districtData from "../data/districtData"
+import PublicNoListing from "./PublicNoListing"
 
 const Content = () => {
   const [listings, setListings] = useState("")
@@ -50,10 +51,10 @@ const Content = () => {
   }
 
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50 ">
       <SearchBar setSearchResult={setSearchResult} listings={listings} />
       {/* Filter by Rent*/}
-      <div className="flex justify- mb-6">
+      <div className="flex justify-start m-6">
         <label htmlFor="filterRent" className="block m-2">
           Filter by Rent
         </label>
@@ -93,7 +94,8 @@ const Content = () => {
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">
-          {listings.length &&
+          {listings.length ? (
+            listings.length &&
             searchResult.map((listing) => (
               <div
                 key={listing._id}
@@ -124,7 +126,10 @@ const Content = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <PublicNoListing />
+          )}
         </div>
       </div>
     </div>

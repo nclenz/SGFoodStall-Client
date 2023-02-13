@@ -1,14 +1,11 @@
 import axios from "axios"
 import React, { useContext, useEffect, useState } from "react"
-import NoEnquiry from "../component/NoEnquiry"
-import AuthContext from "../Context/AuthProvider"
-import { PencilSquareIcon } from "@heroicons/react/24/outline"
-import { Link } from "react-router-dom"
+import NoEnquiry from "./NoEnquiry"
+import AuthContext from "../../Context/AuthProvider"
 
 const AdminDashboard = () => {
   const { auth } = useContext(AuthContext)
   const [enquiryForm, setEnquiryForm] = useState({})
-  const [disabled, setDisabled] = useState(true)
 
   const fetchOwnListings = async () => {
     const response = await axios.get("/api/enquiry/all")
@@ -136,32 +133,25 @@ const AdminDashboard = () => {
                             <span>
                               <td className="relative flex justify-center  whitespace-nowrap py-4 pl-3 text-center text-sm font-medium sm:pr-6">
                                 <select
-                                  disabled={disabled}
-                                  className={`border ${
-                                    !disabled
-                                      ? "border-gray-500 rounded-md"
-                                      : ""
-                                  }`}
-                                  onChange={(e) =>
-                                    setEnquiryForm({
-                                      ...enquiryForm,
-                                      status: e.target.value,
-                                    })
-                                  }
+                                  value={enquiry.status}
+                                  onChange={(event) => {
+                                    const updatedEnquiry = {
+                                      ...enquiry,
+                                      status: event.target.value,
+                                    }
+                                    setEnquiryForm(
+                                      enquiryForm.map((e) =>
+                                        e._id === updatedEnquiry._id
+                                          ? updatedEnquiry
+                                          : e
+                                      )
+                                    )
+                                  }}
                                 >
                                   {ENQUIRY_STATUS.map((status, index) => (
-                                    <option key={index} value={status}>
-                                      {status}
-                                    </option>
+                                    <option key={index}>{status}</option>
                                   ))}
                                 </select>
-
-                                <div
-                                  className="h-6 w-6"
-                                  onClick={() => setDisabled(!disabled)}
-                                >
-                                  <PencilSquareIcon />
-                                </div>
                               </td>
                             </span>
                           </tr>
