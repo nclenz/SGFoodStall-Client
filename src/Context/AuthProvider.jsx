@@ -4,7 +4,7 @@ import { createContext, useState, useEffect } from "react"
 const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useState({ data: null, error: null, loading: true })
 
   const accessToken = localStorage.getItem("accessToken")
   if (accessToken) {
@@ -14,24 +14,42 @@ export const AuthProvider = ({ children }) => {
   const fetchAuthUser = async () => {
     try {
       const response = await axios.get("/api/auth/user")
+
       console.log(response.data)
-      if (response.data.username) {
+      if (response.data.data.username) {
         setAuth({
-          ...auth,
-          id: response.data._id,
-          username: response.data.username,
+          data: {
+            id: response.data.data.id,
+            username: response.data.data.username,
+          },
+          loading: false,
+          error: null,
         })
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message)
+      return setAuth({
+        data: null,
+        error: error.response.data.error,
+        loading: false,
+      })
+    }
   }
 
   useEffect(() => {
     if (accessToken) {
       fetchAuthUser()
     } else {
-      setAuth({})
+      console.log("No token")
+      setAuth({
+        data: null,
+        loading: false,
+        error: null,
+      })
     }
   }, [])
+
+  // console.log(auth)
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

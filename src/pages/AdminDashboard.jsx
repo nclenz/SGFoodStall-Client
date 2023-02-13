@@ -2,17 +2,20 @@ import axios from "axios"
 import React, { useContext, useEffect, useState } from "react"
 import NoEnquiry from "../component/NoEnquiry"
 import AuthContext from "../Context/AuthProvider"
+import { PencilSquareIcon } from "@heroicons/react/24/outline"
+import { Link } from "react-router-dom"
 
 const AdminDashboard = () => {
-  const [enquiryForm, setEnquiryForm] = useState({})
   const { auth } = useContext(AuthContext)
+  const [enquiryForm, setEnquiryForm] = useState({})
+  const [disabled, setDisabled] = useState(true)
 
   const fetchOwnListings = async () => {
     const response = await axios.get("/api/enquiry/all")
     const allEnquiries = response.data
     console.log(allEnquiries)
     const ownEnquiries = allEnquiries.filter(
-      (enquiry) => enquiry.id.user === auth.id
+      (enquiry) => enquiry.id.user === auth.data.id
     )
     setEnquiryForm(ownEnquiries)
     console.log(ownEnquiries)
@@ -21,6 +24,17 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchOwnListings()
   }, [])
+
+  const ENQUIRY_STATUS = [
+    "Open",
+    "Uncontactable",
+    "Failed",
+    "Following",
+    "Pending Viewing",
+    "Viewing Done",
+    "Deposit Collected",
+    "Completed",
+  ]
   return (
     <>
       {enquiryForm.length ? (
@@ -39,6 +53,12 @@ const AdminDashboard = () => {
                   <table className="min-w-full divide-y divide-gray-300">
                     <thead className="bg-gray-50">
                       <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                        >
+                          Listing
+                        </th>
                         <th
                           scope="col"
                           className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
@@ -67,9 +87,9 @@ const AdminDashboard = () => {
 
                         <th
                           scope="col"
-                          className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                          className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                         >
-                          <span className="sr-only">Edit</span>
+                          Status
                         </th>
                       </tr>
                     </thead>
@@ -77,6 +97,18 @@ const AdminDashboard = () => {
                       {enquiryForm?.length &&
                         enquiryForm.map((enquiry) => (
                           <tr key={enquiry._id}>
+                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                              <div className="flex items-center">
+                                <div className="ml-4">
+                                  <div className="font-medium text-gray-900 underline">
+                                    <a href={`/listing/${enquiry.id._id}`}>
+                                      {/* {enquiry.id} */}
+                                      {enquiry.id.title}
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                               <div className="flex items-center">
                                 <div className="ml-4">
@@ -102,6 +134,37 @@ const AdminDashboard = () => {
                                 {enquiry.msg}
                               </div>
                             </td>
+                            <span>
+                              <td className="relative flex justify-center  whitespace-nowrap py-4 pl-3 text-center text-sm font-medium sm:pr-6">
+                                <select
+                                  disabled={disabled}
+                                  className={`border ${
+                                    !disabled
+                                      ? "border-gray-500 rounded-md"
+                                      : ""
+                                  }`}
+                                  onChange={(e) =>
+                                    setEnquiryForm({
+                                      ...enquiryForm,
+                                      status: e.target.value,
+                                    })
+                                  }
+                                >
+                                  {ENQUIRY_STATUS.map((status, index) => (
+                                    <option key={index} value={status}>
+                                      {status}
+                                    </option>
+                                  ))}
+                                </select>
+
+                                <div
+                                  className="h-6 w-6"
+                                  onClick={() => setDisabled(!disabled)}
+                                >
+                                  <PencilSquareIcon />
+                                </div>
+                              </td>
+                            </span>
                           </tr>
                         ))}
                     </tbody>

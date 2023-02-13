@@ -14,10 +14,11 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("accessToken")
-    setAuth({})
+    setAuth({ data: {}, error: null, loading: false })
     alert("Logged out")
     navigate("/")
   }
+  console.log(auth)
 
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -40,7 +41,7 @@ const Navbar = () => {
                   </Link>
                 </div>
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
-                  {auth.id ? (
+                  {auth.data?.username ? (
                     <>
                       <Link
                         to="/admin"
@@ -73,22 +74,13 @@ const Navbar = () => {
                 </Disclosure.Button>
               </div>
               <div className="hidden lg:ml-4 lg:flex lg:items-center">
-                {!auth.id ? (
-                  <a
-                    type="button"
-                    href="#"
-                    className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
-                  >
-                    <span className="sr-only">Sign In</span>
-                    <h3 onClick={() => navigate("/login")}>Admin Login</h3>
-                  </a>
-                ) : (
+                {auth.data?.username ? (
                   <Menu as="div" className="relative ml-4 flex-shrink-0">
                     <div>
                       <Menu.Button className="flex rounded-sm bg-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
                         <h3 className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-lg font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 ">
-                          Hi {auth.username} !
+                          Hi {auth.data.username} !
                         </h3>
                       </Menu.Button>
                     </div>
@@ -159,6 +151,15 @@ const Navbar = () => {
                       </Menu.Items>
                     </Transition>
                   </Menu>
+                ) : (
+                  <a
+                    type="button"
+                    href="#"
+                    className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+                  >
+                    <span className="sr-only">Sign In</span>
+                    <h3 onClick={() => navigate("/login")}>Admin Login</h3>
+                  </a>
                 )}
                 {/* Profile dropdown */}
               </div>
@@ -187,12 +188,13 @@ const Navbar = () => {
               <div className="flex items-center px-4">
                 <div className="ml-3">
                   <div className="text-base font-medium text-gray-800">
-                    {auth.username}
+                    {/* {auth.data.username} */}
+                    {auth.data}
                   </div>
                 </div>
               </div>
               <div className="mt-3 space-y-1">
-                {auth.id ? (
+                {auth.data ? (
                   <>
                     <Disclosure.Button
                       as="a"

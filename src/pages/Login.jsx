@@ -29,10 +29,12 @@ const Login = () => {
         username,
         password: pwd,
       })
+      console.log(response.data)
       const accessToken = response?.data?.accessToken
+      console.log(accessToken)
       const id = response?.data?.id
-      setAuth({ username, id })
       localStorage.setItem("accessToken", accessToken)
+      setAuth({ data: { username, id }, error: null, loading: false })
       navigate("/admin")
       setUsername("")
       setPwd("")

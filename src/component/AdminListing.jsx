@@ -25,7 +25,7 @@ const AdminListing = () => {
     const allListings = response.data
 
     const ownListings = allListings.filter(
-      (listing) => listing.user._id === auth.id
+      (listing) => listing.user._id === auth.data.id
     )
     setListings(ownListings)
   }

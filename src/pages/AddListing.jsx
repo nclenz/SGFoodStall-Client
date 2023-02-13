@@ -24,6 +24,7 @@ const AddListing = () => {
     desc: "",
     cuisine: [],
   })
+  console.log(auth)
 
   const cancelButtonRef = useRef(null)
   const navigate = useNavigate()

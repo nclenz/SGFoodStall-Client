@@ -5,7 +5,13 @@ import AuthContext from "../../Context/AuthProvider"
 const ProtectedRoute = () => {
   const { auth } = useContext(AuthContext)
 
-  return auth ? <Outlet /> : <Navigate to="/login" />
+  console.log(auth)
+
+  if (auth.loading) {
+    return "Loading ...."
+  }
+
+  return auth?.data?.username ? <Outlet /> : <Navigate to="/login" />
 }
 
 export default ProtectedRoute
