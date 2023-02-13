@@ -9,7 +9,7 @@ const Content = () => {
   const [listings, setListings] = useState("")
   const [searchResult, setSearchResult] = useState("")
   const [rentalRange, setRentalRange] = useState("")
-  const [locations, setLocations] = useState("")
+  // const [location, setLocation] = useState("")
   const navigate = useNavigate()
 
   const fetchAllListings = async () => {
@@ -43,11 +43,15 @@ const Content = () => {
   }
 
   const handleLocationChange = (e) => {
-    const filtered = listings.filter(
-      (listing) => listing.location === e.target.value
-    )
-    setSearchResult(filtered)
-    return setLocations(filtered)
+    if (e.target.value === "") {
+      setSearchResult(listings)
+    } else {
+      setSearchResult(
+        listings
+          .filter((listing) => listing.location === e.target.value)
+          .map((filteredLocation) => filteredLocation)
+      )
+    }
   }
 
   return (
@@ -78,24 +82,24 @@ const Content = () => {
           Filter by Location
         </label>
         <select
-          value={locations}
+          value={listings?.location}
           id="filterLocation"
-          onChange={handleLocationChange}
+          onChange={(e) => handleLocationChange(e)}
           className="form-select block w-full sm:w-auto  border-2 rounded-md border-gray-400"
         >
           <option value="">All</option>
-          {Object.values(districtData).map((district, index) => (
-            <option key={index} value={district.join(", ")}>
-              {district.join(", ")}
-            </option>
-          ))}
+          {districtData.length &&
+            districtData.map((district, index) => (
+              <option key={index} value={district.join(", ")}>
+                {district.join(", ")}
+              </option>
+            ))}
         </select>
       </div>
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">
-          {listings.length ? (
-            listings.length &&
+          {searchResult?.length ? (
             searchResult.map((listing) => (
               <div
                 key={listing._id}
@@ -122,7 +126,7 @@ const Content = () => {
                       ${listing.rental} /Month
                     </p>
 
-                    <p>Posted by {listing.user.username}</p>
+                    <p>Posted by {listing.user?.username}</p>
                   </div>
                 </div>
               </div>

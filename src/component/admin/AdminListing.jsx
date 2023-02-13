@@ -36,15 +36,14 @@ const AdminListing = () => {
 
   return (
     <>
+      <button
+        className="border-2 flex mt-8 mr-60 float-right "
+        onClick={() => navigate("/admin/create")}
+      >
+        <span className="text-base ">Add Listing</span>
+      </button>
       {listings.length ? (
         <div className="bg-slate-50">
-          <button
-            className="border-2 flex mt-8 mr-60 float-right"
-            onClick={() => navigate("/admin/create")}
-          >
-            Add Listing
-          </button>
-
           <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <h2 className="sr-only">All Listings</h2>
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
