@@ -41,8 +41,8 @@ const AdminDashboard = () => {
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl mt-8 font-semibold text-gray-900">
-                Enquiries
+              <h1 className="text-2xl mt-8 font-semibold text-gray-900">
+                Leads
               </h1>
             </div>
           </div>
@@ -102,7 +102,6 @@ const AdminDashboard = () => {
                                 <div className="ml-4">
                                   <div className="font-medium text-gray-900 underline">
                                     <a href={`/listing/${enquiry.id._id}`}>
-                                      {/* {enquiry.id} */}
                                       {enquiry.id.title}
                                     </a>
                                   </div>

@@ -70,12 +70,17 @@ const AddListing = () => {
                 </h1>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div className="mt-6  gap-y-6 gap-x-4">
                 <label htmlFor="image">Upload an image:</label>
-                <input type="file" name="image" />
+                <input
+                  className="border rounded-md border-gray-400 "
+                  type="file"
+                  name="image"
+                />
 
                 <label htmlFor="title"> Title: </label>
                 <input
+                  className="border rounded-md border-gray-400 "
                   type="text"
                   id="title"
                   required
@@ -83,8 +88,10 @@ const AddListing = () => {
                     setNewListing({ ...newListing, title: e.target.value })
                   }
                 />
+
                 <label htmlFor="location">Location: </label>
                 <select
+                  className="border rounded-md border-gray-400 "
                   id="location"
                   required
                   defaultValue={districtData[0]}
@@ -104,6 +111,7 @@ const AddListing = () => {
                 </select>
                 <label htmlFor="condition">Condition: </label>
                 <select
+                  className="border rounded-md border-gray-400 "
                   type="text"
                   id="condition"
                   required
@@ -120,6 +128,7 @@ const AddListing = () => {
                 </select>
                 <label htmlFor="rental">Rental: </label>
                 <input
+                  className="border rounded-md border-gray-400 "
                   type="number"
                   id="rental"
                   min="0"
@@ -132,6 +141,7 @@ const AddListing = () => {
                   <label>Negotiable: </label>
                   <label htmlFor="true">True</label>
                   <input
+                    className="border rounded-md border-gray-400 "
                     type="radio"
                     id="true"
                     value="true"
@@ -159,6 +169,7 @@ const AddListing = () => {
                 </span>
                 <label htmlFor="availability">Availability: </label>
                 <input
+                  className="border rounded-md border-gray-400 "
                   type="text"
                   id="availability"
                   autoComplete="off"
@@ -174,6 +185,7 @@ const AddListing = () => {
                   <label>Cuisine:</label>
 
                   <Select
+                    className="border rounded-md border-gray-400 "
                     isMulti
                     options={cuisineOptions}
                     value={selectedCuisines.map((value) => ({ value }))}
@@ -192,6 +204,7 @@ const AddListing = () => {
                 </div>
                 <label htmlFor="desc">Description:</label>
                 <textarea
+                  className="border rounded-md border-gray-400 "
                   id="desc"
                   onChange={(e) =>
                     setNewListing({ ...newListing, desc: e.target.value })
