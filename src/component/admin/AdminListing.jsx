@@ -37,7 +37,7 @@ const AdminListing = () => {
   return (
     <>
       <button
-        className="border-2 flex mt-8 mr-60 float-right "
+        className="border-2 border-gray-300 b flex mt-8 mr-60 float-right hover:border-gray-400"
         onClick={() => navigate("/admin/create")}
       >
         <span className="text-base ">Add Listing</span>

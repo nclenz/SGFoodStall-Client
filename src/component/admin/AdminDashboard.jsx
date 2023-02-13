@@ -24,6 +24,7 @@ const AdminDashboard = () => {
     const allEnquiries = response.data
     console.log(allEnquiries)
     const ownEnquiries = allEnquiries.filter(
+      // (enquiry) => console.log(enquiry.id)
       (enquiry) => enquiry.id.user === auth.data.id
     )
     setEnquiryForm(ownEnquiries)
