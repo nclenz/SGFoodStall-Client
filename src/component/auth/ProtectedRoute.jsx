@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Outlet, Navigate } from "react-router-dom"
 import AuthContext from "../../Context/AuthProvider"
+import SkeletonCard from "../skeleton/SkeletonCard"
 
 const ProtectedRoute = () => {
   const { auth } = useContext(AuthContext)
@@ -8,7 +9,7 @@ const ProtectedRoute = () => {
   console.log(auth)
 
   if (auth.loading) {
-    return "Loading ...."
+    return <SkeletonCard />
   }
 
   return auth?.data?.username ? <Outlet /> : <Navigate to="/login" />

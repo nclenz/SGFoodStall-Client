@@ -13,12 +13,13 @@ const Missing = lazy(() => import("./pages/Missing"))
 const ChangePwd = lazy(() => import("./component/admin/ChangePwd"))
 const PublicLayout = lazy(() => import("./pages/PublicLayout"))
 const ProtectedRoute = lazy(() => import("./component/auth/ProtectedRoute"))
+const SkeletonCard = lazy(() => import("./component/skeleton/SkeletonCard"))
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Suspense fallback={<h1>Loading....</h1>}>
+        <Suspense fallback={<SkeletonCard />}>
           <Routes>
             <Route path="/" element={<PublicLayout />}>
               <Route index element={<Homepage />} />
