@@ -39,7 +39,7 @@ const Login = () => {
       setUsername("")
       setPwd("")
     } catch (err) {
-      if (!err?.response) {
+      if (err.response?.status === 500) {
         setErrMsg("No Server Response")
       } else if (err.response?.status === 429) {
         setErrMsg("Too many login attempts. Please try again in 1 minute.")

@@ -24,14 +24,33 @@ const EnquiryForm = (listingID) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(enquiry)
-    const post = await axios.post("/api/enquiry/send", enquiry)
-    alert("Enquiry Sent. We will get back to you within 3 working days")
-    navigate("/")
+    try {
+      await axios.post("/api/enquiry/send", enquiry)
+      alert("Enquiry Sent. We will get back to you within 3 working days")
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+      if (error.response?.status === 500) {
+        setErrMsg("No Server Response")
+      } else if (
+        error.response.data.errors[0].msg === "Mobile Number is required"
+      ) {
+        setErrMsg("Invalid Mobile Number")
+      } else {
+        setErrMsg("Failed to submit")
+      }
+    }
   }
 
   return (
     <>
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
       <form
         className="border border-gray-300 p-5 rounded-lg bg-slate-50"
         onSubmit={handleSubmit}
@@ -54,15 +73,16 @@ const EnquiryForm = (listingID) => {
           onChange={(e) => setEnquiry({ ...enquiry, email: e.target.value })}
         />
 
-        <label htmlFor="mobile">Mobile: : </label>
+        <label htmlFor="mobile">Mobile: </label>
         <input
           type="text"
           id="mobile"
+          required
           placeholder="Contact Number"
           onChange={(e) => setEnquiry({ ...enquiry, mobile: e.target.value })}
         />
 
-        <label htmlFor="msg">Message: : </label>
+        <label htmlFor="msg">Message: </label>
         <textarea
           id="msg"
           cols="30"
@@ -72,13 +92,6 @@ const EnquiryForm = (listingID) => {
         />
         <button>Submit</button>
       </form>
-      <p
-        ref={errRef}
-        className={errMsg ? "errmsg" : "offscreen"}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </p>
     </>
   )
 }

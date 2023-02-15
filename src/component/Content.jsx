@@ -9,7 +9,6 @@ const Content = () => {
   const [listings, setListings] = useState("")
   const [searchResult, setSearchResult] = useState("")
   const [rentalRange, setRentalRange] = useState("")
-  // const [location, setLocation] = useState("")
   const navigate = useNavigate()
 
   const fetchAllListings = async () => {
