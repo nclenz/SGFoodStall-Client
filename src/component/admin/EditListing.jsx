@@ -52,6 +52,11 @@ const EditListing = () => {
               <h3 className="text-2xl font-medium leading-6 text-gray-900">
                 Edit Listing
               </h3>
+              <img
+                className="mt-10"
+                src={selectedListing.image}
+                alt="stall image"
+              />
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0">
@@ -62,7 +67,7 @@ const EditListing = () => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="title"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-lg font-medium text-gray-700 "
                       >
                         Title:
                       </label>
@@ -139,9 +144,9 @@ const EditListing = () => {
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="cuisine"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-lg font-medium text-gray-700"
                       >
-                        Cuisine
+                        Cuisine:
                       </label>
                       <Select
                         isMulti
@@ -166,7 +171,7 @@ const EditListing = () => {
                     <div className="col-span-6">
                       <label
                         htmlFor="desc"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-lg font-medium text-gray-700"
                       >
                         Description:
                       </label>
@@ -189,9 +194,9 @@ const EditListing = () => {
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label
                         htmlFor="condition:"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-lg font-medium text-gray-700"
                       >
-                        Condition::
+                        Condition:
                       </label>
                       <select
                         id="condition"

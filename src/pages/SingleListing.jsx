@@ -13,15 +13,12 @@ const SingleListing = () => {
   const fetchSelectedListing = async () => {
     const response = await axios.get(`/api/listings/listing/${id}`)
     setListing(response.data)
-    // console.log(listingID)
-    // console.log(response.data)
   }
 
   useEffect(() => {
     setListingID(id)
     fetchSelectedListing()
   }, [])
-  console.log(listingID)
 
   return (
     <div className="border border-gray-300  bg-slate-50">
