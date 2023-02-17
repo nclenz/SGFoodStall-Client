@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import SearchBar from "./SearchBar"
 import districtData from "../data/districtData"
 import PublicNoListing from "./PublicNoListing"
+import { motion } from "framer-motion"
 
 const Content = () => {
   const [listings, setListings] = useState("")
@@ -100,7 +101,8 @@ const Content = () => {
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">
           {searchResult?.length ? (
             searchResult.map((listing) => (
-              <div
+              <motion.div
+                whileHover={{ scale: 1.05 }}
                 key={listing._id}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white  cursor-pointer"
               >
@@ -128,7 +130,7 @@ const Content = () => {
                     <p>Posted by {listing.user?.username}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))
           ) : (
             <PublicNoListing />
