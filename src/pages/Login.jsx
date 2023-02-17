@@ -53,7 +53,11 @@ const Login = () => {
 
   return (
     <main className="login_page">
-      <div className="login">
+      <motion.div
+        animate={{ scale: 1 }}
+        initial={{ scale: 0 }}
+        className="login"
+      >
         <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
@@ -62,11 +66,7 @@ const Login = () => {
           {errMsg}
         </p>
         <h1 className="font-black text-black">Sign in</h1>
-        <motion.form
-          animate={{ scale: 1 }}
-          initial={{ scale: 0 }}
-          onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username: </label>
           <input
             type="text"
@@ -87,8 +87,8 @@ const Login = () => {
             required
           />
           <button className="bg-gray-200 border-2">Login</button>
-        </motion.form>
-      </div>
+        </form>
+      </motion.div>
     </main>
   )
 }
