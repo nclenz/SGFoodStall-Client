@@ -82,10 +82,15 @@ const EditListing = () => {
                       />
                     </div>
 
-                    <div className="col-span-6 sm:col-span-3 mt-10">
-                      <label htmlFor="location">Location: </label>
+                    <div className="col-span-6 sm:col-span-4">
+                      <label
+                        htmlFor="location"
+                        className="block text-lg font-medium text-gray-700 "
+                      >
+                        Location:{" "}
+                      </label>
                       <select
-                        className="border border-gray-300 text-lg rounded"
+                        className="border border-gray-300 text-medium rounded"
                         id="location"
                         required
                         defaultValue={selectedListing.location}

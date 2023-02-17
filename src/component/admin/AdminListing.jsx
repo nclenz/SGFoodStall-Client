@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import AuthContext from "../../Context/AuthProvider"
 import NoListing from "./NoListing"
+import { motion } from "framer-motion"
 
 const AdminListing = () => {
   const { auth } = useContext(AuthContext)
@@ -34,20 +35,25 @@ const AdminListing = () => {
 
   return (
     <>
-      <button
-        className="border-2 border-gray-300 b flex mt-8 mr-60 float-right hover:border-gray-400"
-        onClick={() => navigate("/admin/create")}
-      >
-        <span className="text-base ">Add Listing</span>
-      </button>
+      <div className="mt-10">
+        <button
+          className="border-2 text-lg border-gray-300 flex hover:border-gray-400 mr-auto ml-auto p-2"
+          onClick={() => navigate("/admin/create")}
+        >
+          Add Listing
+        </button>
+      </div>
       {listings.length ? (
         <div className="bg-slate-50">
-          <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="mx-auto max-w-2xl  sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <h2 className="sr-only">All Listings</h2>
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
               {listings.length &&
                 listings.map((listing) => (
-                  <div
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
+                    transition={{ duration: 0.5 }}
                     key={listing._id}
                     onClick={() => navigate(`/admin/edit/${listing._id}`)}
                     className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white  cursor-pointer"
@@ -84,7 +90,7 @@ const AdminListing = () => {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
             </div>
           </div>

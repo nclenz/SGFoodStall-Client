@@ -80,19 +80,20 @@ a:visited {
   color: black;
 }
 
-input[id="username"],
-input[id="pwd"],
-input[id="oldPwd"],
-input[id="newPwd"],
+input,
 button,
 textarea {
   font-family: "Nunito", sans-serif;
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
-  border: 2px solid #333;
+
   color: #333;
   background-color: #f5f5f5;
+}
+input,
+textarea {
+  border: 2px solid #333;
 }
 
 label,
