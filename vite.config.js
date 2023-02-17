@@ -5,8 +5,8 @@ import react from "@vitejs/plugin-react"
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://127.0.0.1:3400",
-      // "/api": "https://plum-crab-coat.cyclic.app",
+      // "/api": "http://127.0.0.1:3400",
+      "/api": "https://plum-crab-coat.cyclic.app",
     },
   },
   plugins: [react()],

@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useContext } from "react"
 import AuthContext from "../Context/AuthProvider"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext)
@@ -61,7 +62,11 @@ const Login = () => {
           {errMsg}
         </p>
         <h1 className="font-black text-black">Sign in</h1>
-        <form onSubmit={handleSubmit}>
+        <motion.form
+          animate={{ scale: 1 }}
+          initial={{ scale: 0 }}
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="username">Username: </label>
           <input
             type="text"
@@ -81,8 +86,8 @@ const Login = () => {
             value={pwd}
             required
           />
-          <button>Login</button>
-        </form>
+          <button className="bg-gray-200 border-2">Login</button>
+        </motion.form>
       </div>
     </main>
   )

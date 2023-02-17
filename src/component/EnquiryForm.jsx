@@ -29,7 +29,6 @@ const EnquiryForm = (listingID) => {
       alert("Enquiry Sent. We will get back to you within 3 working days")
       navigate("/")
     } catch (error) {
-      console.log(error)
       if (error.response?.status === 500) {
         setErrMsg("No Server Response")
       } else if (
