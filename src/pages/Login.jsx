@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const response = await axios.post("/api/auth/login", {
-        username,
+        username: username.toLowerCase(),
         password: pwd,
       })
       console.log(response.data)
@@ -86,7 +86,9 @@ const Login = () => {
             value={pwd}
             required
           />
-          <button className="bg-gray-200 border-2">Login</button>
+          <button className="bg-gray-100 hover:bg-gray-300 border-2 border-black">
+            Login
+          </button>
         </form>
       </motion.div>
     </main>

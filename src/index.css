@@ -35,7 +35,7 @@ body {
   padding: 1rem 0.5rem;
   background-image: url("./assets/LaoPaSat.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: 25% 75%;
   background-color: rgba(24, 55, 84, 0.793);
   background-blend-mode: multiply;
 }

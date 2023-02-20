@@ -61,7 +61,12 @@ const Navbar = () => {
                     className="flex-shrink-0 rounded bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
                   >
                     <span className="sr-only">Sign In</span>
-                    <h3 onClick={() => navigate("/login")}>Admin Login</h3>
+                    <h3
+                      className="text-lg font-medium"
+                      onClick={() => navigate("/login")}
+                    >
+                      Admin Login
+                    </h3>
                   </a>
                 )}
               </div>
