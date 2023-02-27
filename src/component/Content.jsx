@@ -1,11 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import SearchBar from "./SearchBar"
-import districtData from "../data/districtData"
+import SearchBar from "./SearchFilterBars/SearchBar"
 import PublicNoListing from "./PublicNoListing"
 import { motion } from "framer-motion"
 import SkeletonCard from "./skeleton/SkeletonCard"
+import RentalFilter from "./SearchFilterBars/RentalFilter"
+import LocationFilter from "./SearchFilterBars/LocationFilter"
 
 const Content = () => {
   const [listings, setListings] = useState("")
@@ -60,40 +61,23 @@ const Content = () => {
 
   if (isLoading) return <SkeletonCard />
 
+  // if (isError) return <h2>{error.message}</h2>
+
   return (
     <div className="bg-slate-50 ">
       <span className="flex items-center justify-center mt-20">
         {/* Filter by Rent*/}
-
-        <select
-          value={rentalRange}
-          id="filterRent"
-          onChange={handleRentalRangeChange}
-          className="form-select block w-full sm:w-auto border-2 rounded-md border-gray-400 text-base p-1 "
-        >
-          <option value="">Filter By Rent</option>
-          <option value="below2k">Below $2,000</option>
-          <option value="2k-5k">$2,000 - $5,000</option>
-          <option value="5k-10k">$5,000 - $10,000</option>
-          <option value="moreThan10k">More than $10,000</option>
-        </select>
+        <RentalFilter
+          rentalRange={rentalRange}
+          handleRentalRangeChange={handleRentalRangeChange}
+        />
         <SearchBar setSearchResult={setSearchResult} listings={listings} />
         {/* Filter by Location*/}
 
-        <select
-          value={listings?.location}
-          id="filterLocation"
-          onChange={(e) => handleLocationChange(e)}
-          className="form-select block w-full sm:w-auto  border-2 rounded-md border-gray-400 text-base p-1"
-        >
-          <option value="">Filter by Location</option>
-          {districtData.length &&
-            districtData.map((district, index) => (
-              <option key={index} value={district.join(", ")}>
-                {district.join(", ")}
-              </option>
-            ))}
-        </select>
+        <LocationFilter
+          listings={listings}
+          handleLocationChange={handleLocationChange}
+        />
       </span>
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
