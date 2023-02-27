@@ -5,17 +5,21 @@ import SearchBar from "./SearchBar"
 import districtData from "../data/districtData"
 import PublicNoListing from "./PublicNoListing"
 import { motion } from "framer-motion"
+import SkeletonCard from "./skeleton/SkeletonCard"
 
 const Content = () => {
   const [listings, setListings] = useState("")
   const [searchResult, setSearchResult] = useState("")
   const [rentalRange, setRentalRange] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+
   const navigate = useNavigate()
 
   const fetchAllListings = async () => {
     const response = await axios.get("/api/listings/all")
     setListings(response.data)
     setSearchResult(response.data)
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -54,40 +58,35 @@ const Content = () => {
     }
   }
 
+  if (isLoading) return <SkeletonCard />
+
   return (
     <div className="bg-slate-50 ">
-      <SearchBar setSearchResult={setSearchResult} listings={listings} />
-      {/* Filter by Rent*/}
-      <div className="flex justify-start m-6">
-        <label htmlFor="filterRent" className="block m-2">
-          Filter by Rent
-        </label>
+      <span className="flex items-center justify-center mt-20">
+        {/* Filter by Rent*/}
+
         <select
           value={rentalRange}
           id="filterRent"
           onChange={handleRentalRangeChange}
-          className="form-select block w-full sm:w-auto border-2 rounded-md border-gray-400 "
+          className="form-select block w-full sm:w-auto border-2 rounded-md border-gray-400 text-base p-1 "
         >
-          <option value="">All</option>
+          <option value="">Filter By Rent</option>
           <option value="below2k">Below $2,000</option>
           <option value="2k-5k">$2,000 - $5,000</option>
           <option value="5k-10k">$5,000 - $10,000</option>
           <option value="moreThan10k">More than $10,000</option>
         </select>
-      </div>
+        <SearchBar setSearchResult={setSearchResult} listings={listings} />
+        {/* Filter by Location*/}
 
-      {/* Filter by Location*/}
-      <div className="flex justify- mb-6">
-        <label htmlFor="filterLocation" className="block m-2">
-          Filter by Location
-        </label>
         <select
           value={listings?.location}
           id="filterLocation"
           onChange={(e) => handleLocationChange(e)}
-          className="form-select block w-full sm:w-auto  border-2 rounded-md border-gray-400"
+          className="form-select block w-full sm:w-auto  border-2 rounded-md border-gray-400 text-base p-1"
         >
-          <option value="">All</option>
+          <option value="">Filter by Location</option>
           {districtData.length &&
             districtData.map((district, index) => (
               <option key={index} value={district.join(", ")}>
@@ -95,7 +94,7 @@ const Content = () => {
               </option>
             ))}
         </select>
-      </div>
+      </span>
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8 ">

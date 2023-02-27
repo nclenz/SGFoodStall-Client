@@ -80,7 +80,8 @@ a:visited {
   color: black;
 }
 
-input,
+/* It's a CSS selector. It selects all `input` elements. */
+/* input, */
 button,
 textarea {
   font-family: "Nunito", sans-serif;

@@ -16,29 +16,22 @@ const SearchBar = ({ setSearchResult, listings }) => {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-center my-5  ">
-      <div className="w-full max-w-lg lg:max-w-xs ">
-        <label htmlFor="search" className="sr-only">
-          Search
-        </label>
-        <div className="relative ">
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <MagnifyingGlassIcon
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </div>
-          <input
-            className="block w-full mt-10 rounded-md border-2 border-gray-400 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-lg"
-            type="text"
-            placeholder="Search keywords"
-            id="search"
-            autoComplete="off"
-            onChange={handleSearchChange}
-          />
-        </div>
+    <>
+      <div className="relative">
+        <input
+          className="block w-full text-base p-1 sm:w-auto border-2 rounded-md border-gray-400 pl-8 placeholder-black"
+          type="text"
+          placeholder="Search keywords"
+          id="search"
+          autoComplete="off"
+          onChange={handleSearchChange}
+        />
+        <MagnifyingGlassIcon
+          className="h-5 w-5 text-black absolute top-2 left-2"
+          // aria-hidden="true"
+        />
       </div>
-    </div>
+    </>
   )
 }
 
