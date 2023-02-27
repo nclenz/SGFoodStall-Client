@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom"
 import AuthContext from "../../Context/AuthProvider"
 import NoListing from "./NoListing"
 import { motion } from "framer-motion"
+import SkeletonCard from "../skeleton/SkeletonCard"
 
 const AdminListing = () => {
   const { auth } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState(true)
   const [listings, setListings] = useState({
     image: "",
     title: "",
@@ -27,11 +29,14 @@ const AdminListing = () => {
       (listing) => listing.user._id === auth.data.id
     )
     setListings(ownListings)
+    setIsLoading(false)
   }
 
   useEffect(() => {
     fetchAllListings()
   }, [])
+
+  if (isLoading) return <SkeletonCard />
 
   return (
     <>

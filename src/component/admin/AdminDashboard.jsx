@@ -2,11 +2,13 @@ import axios from "axios"
 import React, { useContext, useEffect, useState } from "react"
 import NoEnquiry from "./NoEnquiry"
 import AuthContext from "../../Context/AuthProvider"
+import SkeletonCard from "../skeleton/SkeletonCard"
 
 const AdminDashboard = () => {
   const { auth } = useContext(AuthContext)
   const [enquiryForm, setEnquiryForm] = useState({})
   const [selectedEnquiryId, setSelectedEnquiryId] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const ENQUIRY_STATUS = [
     "Open",
@@ -22,13 +24,11 @@ const AdminDashboard = () => {
   const fetchOwnListings = async () => {
     const response = await axios.get("/api/enquiry/all")
     const allEnquiries = response.data
-    console.log(allEnquiries)
     const ownEnquiries = allEnquiries.filter(
-      // (enquiry) => console.log(enquiry.id)
       (enquiry) => enquiry.id.user === auth.data.id
     )
     setEnquiryForm(ownEnquiries)
-    console.log(ownEnquiries)
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -47,6 +47,8 @@ const AdminDashboard = () => {
 
     updateStatus()
   }, [enquiryForm])
+
+  if (isLoading) return <SkeletonCard />
 
   return (
     <>
