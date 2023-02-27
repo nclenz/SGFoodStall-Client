@@ -23,61 +23,27 @@ const Content = () => {
     setIsLoading(false)
   }
 
+  //Fetch all listings on mount
   useEffect(() => {
     fetchAllListings()
   }, [])
 
-  const handleRentalRangeChange = (e) => {
-    setSearchResult(
-      listings.filter((listing) => {
-        switch (e.target.value) {
-          case "below2k":
-            return listing.rental < 2000
-          case "2k-5k":
-            return listing.rental >= 2000 && listing.rental < 5000
-          case "5k-10k":
-            return listing.rental >= 5000 && listing.rental < 10000
-          case "moreThan10k":
-            return listing.rental >= 10000
-          default:
-            return true
-        }
-      })
-    )
-    setRentalRange(e.target.value)
-  }
-
-  const handleLocationChange = (e) => {
-    if (e.target.value === "") {
-      setSearchResult(listings)
-    } else {
-      setSearchResult(
-        listings
-          .filter((listing) => listing.location === e.target.value)
-          .map((filteredLocation) => filteredLocation)
-      )
-    }
-  }
-
+  //Loading page before data return
   if (isLoading) return <SkeletonCard />
-
-  // if (isError) return <h2>{error.message}</h2>
 
   return (
     <div className="bg-slate-50 ">
       <span className="flex items-center justify-center mt-20">
-        {/* Filter by Rent*/}
         <RentalFilter
+          setSearchResult={setSearchResult}
           rentalRange={rentalRange}
-          handleRentalRangeChange={handleRentalRangeChange}
-        />
-        <SearchBar setSearchResult={setSearchResult} listings={listings} />
-        {/* Filter by Location*/}
-
-        <LocationFilter
+          setRentalRange={setRentalRange}
           listings={listings}
-          handleLocationChange={handleLocationChange}
         />
+
+        <SearchBar setSearchResult={setSearchResult} listings={listings} />
+
+        <LocationFilter listings={listings} setSearchResult={setSearchResult} />
       </span>
 
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

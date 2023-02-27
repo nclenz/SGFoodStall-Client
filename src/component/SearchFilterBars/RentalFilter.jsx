@@ -1,6 +1,31 @@
 import React from "react"
 
-const RentalFilter = ({ rentalRange, handleRentalRangeChange }) => {
+const RentalFilter = ({
+  rentalRange,
+  setRentalRange,
+  setSearchResult,
+  listings,
+}) => {
+  const handleRentalRangeChange = (e) => {
+    setSearchResult(
+      listings.filter((listing) => {
+        switch (e.target.value) {
+          case "below2k":
+            return listing.rental < 2000
+          case "2k-5k":
+            return listing.rental >= 2000 && listing.rental < 5000
+          case "5k-10k":
+            return listing.rental >= 5000 && listing.rental < 10000
+          case "moreThan10k":
+            return listing.rental >= 10000
+          default:
+            return true
+        }
+      })
+    )
+    setRentalRange(e.target.value)
+  }
+
   return (
     <select
       value={rentalRange}

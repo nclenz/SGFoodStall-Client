@@ -1,7 +1,18 @@
 import React from "react"
 import districtData from "../../data/districtData"
 
-const LocationFilter = ({ listings, handleLocationChange }) => {
+const LocationFilter = ({ listings, setSearchResult }) => {
+  const handleLocationChange = (e) => {
+    if (e.target.value === "") {
+      setSearchResult(listings)
+    } else {
+      setSearchResult(
+        listings
+          .filter((listing) => listing.location === e.target.value)
+          .map((filteredLocation) => filteredLocation)
+      )
+    }
+  }
   return (
     <select
       value={listings?.location}
