@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import React, { lazy, Suspense } from "react"
-import { QueryClient, QueryClientProvider } from "react-query"
 
 const AdminListing = lazy(() => import("./component/admin/AdminListing"))
 const Login = lazy(() => import("./pages/Login"))
@@ -16,37 +15,33 @@ const PublicLayout = lazy(() => import("./pages/PublicLayout"))
 const ProtectedRoute = lazy(() => import("./component/auth/ProtectedRoute"))
 const SkeletonCard = lazy(() => import("./component/skeleton/SkeletonCard"))
 
-const queryClient = new QueryClient()
-
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<SkeletonCard />}>
-            <Routes>
-              <Route path="/" element={<PublicLayout />}>
-                <Route index element={<Homepage />} />
-                <Route path="/listing/:id" element={<SingleListing />} />
-                <Route path="/login" element={<Login />} />
+        <Suspense fallback={<SkeletonCard />}>
+          <Routes>
+            <Route path="/" element={<PublicLayout />}>
+              <Route index element={<Homepage />} />
+              <Route path="/listing/:id" element={<SingleListing />} />
+              <Route path="/login" element={<Login />} />
 
-                {/*Protected Route */}
-                <Route element={<ProtectedRoute />}>
-                  <Route path="admin" element={<AdminLayout />}>
-                    <Route index element={<AdminListing />} />
-                    <Route path="/admin/changepwd" element={<ChangePwd />} />
-                    <Route path="/admin/edit/:id" element={<EditListing />} />
-                    <Route path="/admin/create" element={<AddListing />} />
-                    <Route path="/admin/dash" element={<AdminDashboard />} />
-                  </Route>
+              {/*Protected Route */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="admin" element={<AdminLayout />}>
+                  <Route index element={<AdminListing />} />
+                  <Route path="/admin/changepwd" element={<ChangePwd />} />
+                  <Route path="/admin/edit/:id" element={<EditListing />} />
+                  <Route path="/admin/create" element={<AddListing />} />
+                  <Route path="/admin/dash" element={<AdminDashboard />} />
                 </Route>
-                {/*End Protected Route */}
-                {/* catch all other routes */}
-                <Route path="*" element={<Missing />} />
               </Route>
-            </Routes>
-          </Suspense>
-        </QueryClientProvider>
+              {/*End Protected Route */}
+              {/* catch all other routes */}
+              <Route path="*" element={<Missing />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </div>
   )
