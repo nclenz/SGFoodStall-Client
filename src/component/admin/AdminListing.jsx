@@ -86,7 +86,7 @@ const AdminListing = () => {
                         ${listing.rental} /Month
                       </p>
                       <span>
-                        <p>Posted by {listing.user.username}</p>
+                        <p>Posted by {listing.user?.username}</p>
                       </span>
                     </div>
                   </div>
